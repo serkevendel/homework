@@ -1,0 +1,5 @@
+projectKey=com.mycompany:SV_EntityHF
+serverUrl=http://sonar.codingmentor.xyz
+dashboardUrl=http://sonar.codingmentor.xyz/dashboard/index/com.mycompany:SV_EntityHF
+ceTaskId=AVQBdVkJNBXGkaqlYW8U
+ceTaskUrl=http://sonar.codingmentor.xyz/api/ce/task?id=AVQBdVkJNBXGkaqlYW8U
