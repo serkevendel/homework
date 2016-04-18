@@ -1,0 +1,6 @@
+Matekpelda feladat
+1+1 = 4
+2+2 = 8
+10 + 10 = 232
+
+Ebbe tuti nincs hiba!
