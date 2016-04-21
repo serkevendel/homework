@@ -1,0 +1,17 @@
+CartREST példák
+
+
+InventoryREST példák
+-addMobile: 
+	http://localhost:8080/SV_MobileWebshop-web/webresources/inventory/
+	POST
+	{
+		"id": "123456789123456789123456789123456789",
+		"manufacturer": "ExampleManufacturer",
+		"piece": 20,
+		"price": 4000,
+		"type": "ExampleType"
+	}
+	
+
+UserREST példák
