@@ -25,7 +25,7 @@ import sv.mycompany.service.UserManagementService;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserRESTService {
 
-    public static String sessionUser;
+    public static final String sessionUser = "user";
     @Inject
     private UserManagementService userManagementService;
 
@@ -78,7 +78,6 @@ public class UserRESTService {
                     session.invalidate();
                     throw new BadRequestException("User is already logged in!");
                 }
-                sessionUser = user.getUsername();
                 session.setAttribute(sessionUser, user);
                 session.setMaxInactiveInterval(4000);
                 return user;

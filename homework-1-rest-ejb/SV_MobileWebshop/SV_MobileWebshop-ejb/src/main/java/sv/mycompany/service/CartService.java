@@ -13,9 +13,9 @@ import javax.inject.Inject;
 public class CartService implements Serializable {
 
     @Inject
-    private InventoryService inventoryService;
+    private transient InventoryService inventoryService;
 
-    private final List<MobileDTO> cart = new ArrayList<>();
+    private transient final List<MobileDTO> cart = new ArrayList<>();
 
     public List<MobileDTO> addToCart(MobileDTO mobile) {
         if (inventoryService.getMobilesList().contains(mobile)) {
