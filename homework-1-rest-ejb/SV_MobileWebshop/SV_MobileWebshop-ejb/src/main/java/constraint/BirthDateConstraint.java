@@ -13,7 +13,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface BirthDateConstraint {
 
-    String message() default "{FirstnameLastname.message}";
+    String message() default "{Invalid BirthDate error}";
 
     Class<?>[] groups() default {};
 

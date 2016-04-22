@@ -6,7 +6,6 @@ import dto.UserDTO;
 import exception.BadRequestException;
 import interceptor.BeanValidation;
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,15 +17,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import service.UserManagementService;
 
-/**
- *
- * @author Serke Vendel
- */
-@Stateless
+
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -36,6 +32,7 @@ public class UserRESTService {
     private UserManagementService userManagementService;
     
     @POST
+    @Path("/")
     public UserDTO addUser (UserDTO user){
         userManagementService.addUser(user);
         return user;
@@ -67,18 +64,25 @@ public class UserRESTService {
     }
     
     @GET
+    @Path("/")
     public List<UserDTO> getUsers(){
         return userManagementService.getUsers();
     }
     
     @POST
     @Path("/login")
-    public UserDTO login(@Context HttpServletRequest request, String username, String password){
+    public UserDTO login(@Context HttpServletRequest request,
+            @QueryParam(value = "username") String username,
+            @QueryParam(value = "password") String password){
         for (UserDTO user : userManagementService.getUsers()) {
             if(user.getUsername().equals(username) && user.getPassword().equals(password)){
                 HttpSession session = request.getSession();
+                if(null!=session.getAttribute(username)){
+                    session.invalidate();
+                    throw new BadRequestException("User is already logged in!");
+                }
                 session.setAttribute(user.getUsername(), user);
-                session.setMaxInactiveInterval(1800);
+                session.setMaxInactiveInterval(4000);
                 return user;
             } 
         }
@@ -87,8 +91,9 @@ public class UserRESTService {
     
     @POST
     @Path("/logout")
-    public void logout(@Context HttpServletRequest request) {
+    public String logout(@Context HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         session.invalidate();
+        return "Logout successful";
     }
 }

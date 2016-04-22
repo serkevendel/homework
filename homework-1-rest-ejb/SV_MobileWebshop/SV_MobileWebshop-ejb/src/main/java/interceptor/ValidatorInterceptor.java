@@ -3,21 +3,23 @@ package interceptor;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
-import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
+
 import annotation.Validate;
+import annotation.ValidatorQualifier;
 import exception.ValidationException;
+import javax.inject.Inject;
+import javax.validation.Validator;
 
 
 @Interceptor
 @BeanValidation
 public class ValidatorInterceptor {
 
-    @Inject 
+    @Inject @ValidatorQualifier
     private Validator validator;
 
     @AroundInvoke

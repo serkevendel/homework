@@ -13,11 +13,11 @@ import javax.ws.rs.ext.Provider;
 public class GeneralExceptionMapper implements ExceptionMapper<Throwable> {
 
     @Inject
-    private Logger logger;
+    private  Logger LOGGER;
 
     @Override
     public Response toResponse(Throwable throwable) {
-        logger.log(Level.SEVERE, "General Exception", throwable);
+        LOGGER.log(Level.SEVERE, "General Exception", throwable);
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ErrorDTO(throwable.getMessage() + " - " + throwable.getCause())).type(MediaType.APPLICATION_JSON).build();
     }
 }

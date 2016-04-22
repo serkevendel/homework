@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package rest;
 
 import dto.MobileDTO;
+import dto.UserDTO;
 import exception.BadRequestException;
 import interceptor.BeanValidation;
 import java.util.List;
@@ -19,11 +16,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import service.InventoryService;
+import service.UserManagementService;
 
-/**
- *
- * @author Serke Vendel
- */
+
 @Path("/inventory")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -32,16 +27,20 @@ public class InventoryRESTService {
     @Inject
     private InventoryService inventoryService;
     
+    @Inject
+    private UserManagementService userManagementService;
+    
     @POST
     @Path("/")
     @BeanValidation
     public MobileDTO addMobile(@Context HttpServletRequest request,MobileDTO mobile){
-        if(null != request.getSession().getAttribute("admin")) { 
-            return inventoryService.addMobile(mobile);
-        }
-        else{
-            throw new BadRequestException("Access denied, operation is admin only!");
-        }
+        
+            for (UserDTO user : userManagementService.getUsers()) {
+               if(null != request.getSession().getAttribute(user.getUsername()) && user.isAdmin()){
+                   return inventoryService.addMobile(mobile);
+               }
+            }
+            throw new BadRequestException("Admin login required for this operation.");
     }
     
     @GET

@@ -2,6 +2,7 @@
 package dto;
 
 import annotation.Validate;
+import interceptor.BeanValidation;
 import java.util.Objects;
 import java.util.UUID;
 import javax.validation.constraints.Min;
@@ -9,12 +10,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Validate
+@BeanValidation
 public class MobileDTO {
     @Pattern(regexp=".{36}")
     private String id = UUID.randomUUID().toString();
     @NotNull
     @Pattern(regexp="....*")
     private String type;
+    @NotNull
+    @Pattern(regexp="....*")
     private String manufacturer;
     @Min(value=1)
     private int price;
@@ -28,6 +32,12 @@ public class MobileDTO {
         this.piece = piece;
     }
 
+    public MobileDTO() {
+        //Empty public constructor for Mobile
+    }
+
+    
+    
     public String getId() {
         return this.id;
     }

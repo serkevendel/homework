@@ -3,16 +3,17 @@ package dto;
 
 import annotation.Validate;
 import constraint.BirthDateConstraint;
+import interceptor.BeanValidation;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Validate
 @BirthDateConstraint
-public class UserDTO {
+@BeanValidation
+public class UserDTO implements Serializable{
     @NotNull
     @Pattern(regexp="....*")
     private String username;
@@ -25,7 +26,6 @@ public class UserDTO {
     @NotNull
     private LocalDate registrationDate;
     private boolean admin;
-    private List<MobileDTO> cart = new ArrayList<>();
 
     public UserDTO(String username, String password, String firstname, String lastname, LocalDate dateOfBirth, LocalDate registrationDate, boolean admin) {
         this.username = username;
@@ -36,6 +36,11 @@ public class UserDTO {
         this.registrationDate = registrationDate;
         this.admin = admin;
     }
+
+    public UserDTO() {
+        //Empty public constructor for UserDTO
+    }
+    
 
     public String getUsername() {
         return this.username;
@@ -93,25 +98,16 @@ public class UserDTO {
         this.admin = admin;
     }
 
-    public List<MobileDTO> getCart() {
-        return this.cart;
-    }
-
-    public void setCart(List<MobileDTO> cart) {
-        this.cart = cart;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 13 * hash + Objects.hashCode(this.username);
-        hash = 13 * hash + Objects.hashCode(this.password);
-        hash = 13 * hash + Objects.hashCode(this.firstname);
-        hash = 13 * hash + Objects.hashCode(this.lastname);
-        hash = 13 * hash + Objects.hashCode(this.dateOfBirth);
-        hash = 13 * hash + Objects.hashCode(this.registrationDate);
-        hash = 13 * hash + (this.admin ? 1 : 0);
-        hash = 13 * hash + Objects.hashCode(this.cart);
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.username);
+        hash = 11 * hash + Objects.hashCode(this.password);
+        hash = 11 * hash + Objects.hashCode(this.firstname);
+        hash = 11 * hash + Objects.hashCode(this.lastname);
+        hash = 11 * hash + Objects.hashCode(this.dateOfBirth);
+        hash = 11 * hash + Objects.hashCode(this.registrationDate);
+        hash = 11 * hash + (this.admin ? 1 : 0);
         return hash;
     }
 
@@ -123,10 +119,10 @@ public class UserDTO {
         if (obj == null) {
             return false;
         }
-        if (this.getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        UserDTO other = (UserDTO)obj;
+        final UserDTO other = (UserDTO) obj;
         if (this.admin != other.admin) {
             return false;
         }
@@ -148,9 +144,7 @@ public class UserDTO {
         if (!Objects.equals(this.registrationDate, other.registrationDate)) {
             return false;
         }
-        if (!Objects.equals(this.cart, other.cart)) {
-            return false;
-        }
         return true;
     }
+
 }

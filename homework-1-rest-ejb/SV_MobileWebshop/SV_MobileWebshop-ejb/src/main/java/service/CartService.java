@@ -1,42 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package service;
 import dto.MobileDTO;
-import java.lang.invoke.LambdaMetafactory;
+import exception.BadRequestException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.stream.Stream;
-import javax.ejb.LocalBean;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 
 @Stateful
-@LocalBean
-public class CartService {
+public class CartService implements Serializable {
     @Inject
     private InventoryService inventoryService;
     
-    private List<MobileDTO> cart = new ArrayList<>();
+    private final List<MobileDTO> cart = new ArrayList<>();
 
     public List<MobileDTO> addToCart(MobileDTO mobile) {
+        if(inventoryService.getMobilesList().contains(mobile)){
         cart.add(mobile);
         return cart;
+        }
+        else throw new BadRequestException("Mobile is not available in the shop");
     }
 
     @Remove
     public void checkout() {
-        cart.stream().forEach((mobileDTO) -> {
+        for (MobileDTO mobileDTO : cart) {
             inventoryService.buyMobile(mobileDTO);
-        });
-        this.cart.clear();
+        }
     }
 
-    public List<MobileDTO> getProducts() {
+    public List<MobileDTO> getCart() {
         return cart;
     }
+
+    
 }
