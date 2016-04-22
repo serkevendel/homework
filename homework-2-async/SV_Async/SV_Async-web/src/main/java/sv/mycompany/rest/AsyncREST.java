@@ -46,7 +46,7 @@ public class AsyncREST implements Serializable {
 
     @Path("/long")
     @POST
-    public void requestLongandInstant(@Context HttpServletRequest request, String seconds) throws InterruptedException, ExecutionException {
+    public void requestLongandInstant(@Context HttpServletRequest request, String seconds) throws  ExecutionException, InterruptedException {
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(1800);
         Future<String> result = longRespondingService.longRespondingTask(Integer.parseInt(seconds));

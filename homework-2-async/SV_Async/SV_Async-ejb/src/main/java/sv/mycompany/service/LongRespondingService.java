@@ -17,12 +17,12 @@ import javax.ejb.Stateless;
 public class LongRespondingService implements Serializable{
 
     @Resource
-    private SessionContext ctx;
+    private transient SessionContext ctx;
 
     public Future<String> longRespondingTask(int wait) throws InterruptedException {
         String status;
         for (int i = 0; i < 20; i++) {
-            Thread.sleep(wait *50);
+            Thread.sleep((long)wait *50);
 
             if (ctx.wasCancelCalled()) {
                 return new AsyncResult<>("cancelled");
