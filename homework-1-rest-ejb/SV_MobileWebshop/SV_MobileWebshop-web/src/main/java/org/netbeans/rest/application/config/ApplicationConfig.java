@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.netbeans.rest.application.config;
 
 import java.util.Set;
@@ -29,12 +24,12 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(exception.BadRequestExceptionMapper.class);
-        resources.add(exception.GeneralExceptionMapper.class);
-        resources.add(exception.ValidationExceptionMapper.class);
-        resources.add(rest.CartRESTService.class);
-        resources.add(rest.InventoryRESTService.class);
-        resources.add(rest.UserRESTService.class);
+        resources.add(sv.mycompany.exceptionmapper.BadRequestExceptionMapper.class);
+        resources.add(sv.mycompany.exceptionmapper.GeneralExceptionMapper.class);
+        resources.add(sv.mycompany.exceptionmapper.ValidationExceptionMapper.class);
+        resources.add(sv.mycompany.rest.CartRESTService.class);
+        resources.add(sv.mycompany.rest.InventoryRESTService.class);
+        resources.add(sv.mycompany.rest.UserRESTService.class);
     }
     
 }

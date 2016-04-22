@@ -1,0 +1,107 @@
+﻿UserRESTService:
+
+1. Userek listájának lekérdezése
+	GET
+	http://localhost:8080/SV_MobileWebshop-web/webresources/users/
+	
+2. User hozzáadása
+
+	POST
+	http://localhost:8080/SV_MobileWebshop-web/webresources/users/
+	Header: Content-Type: application/json
+	 {
+		"admin": false,
+		"dateOfBirth": "1994-10-20",
+		"firstname": "Firstname",
+		"lastname": "Lastname",
+		"password": "example",
+		"registrationDate": "2016-04-21",
+		"username": "exampleuser"
+	 }
+
+3. User kitörlése
+	
+	DELETE
+	http://localhost:8080/SV_MobileWebshop-web/webresources/users/exampleuser
+
+4. User módosítása
+
+	PUT
+	http://localhost:8080/SV_MobileWebshop-web/webresources/users/user
+	Header: Content-Type: application/json
+	{
+		"admin": false,
+		"dateOfBirth": "1996-02-16",
+		"firstname": "TestFirst",
+		"lastname": "TestLast",
+		"password": "user45=",
+		"registrationDate": "2014-04-21",
+		"username": "user"
+	}
+(fontos hogy ez az usernév megegyezzen a path-ban lévővel)
+
+5. Választott User lekérdezése
+
+GET
+http://localhost:8080/SV_MobileWebshop-web/webresources/users/user
+
+6. Login ( adminként )
+
+POST
+http://localhost:8080/SV_MobileWebshop-web/webresources/users/login?username=admin&password=admin
+
+7. Logout
+
+POST
+http://localhost:8080/SV_MobileWebshop-web/webresources/users/logout
+Ezzel az UserRESTService kérései le vannak fedve.
+
+
+InventoryRESTService
+
+1. Mobilok listájának lekérdezése
+
+GET
+http://localhost:8080/SV_MobileWebshop-web/webresources/inventory/
+
+2. Mobil hozzáadása ( előtte jelentkezzünk be újra adminként)
+
+POST
+Header: Content-Type: application/json
+http://localhost:8080/SV_MobileWebshop-web/webresources/inventory/
+{
+        "id": "4a58ce50-1bb0-45cd-XXXX-cbd2ebbcb952",
+        "manufacturer": "Testing",
+        "piece": 30,
+        "price": 200,
+        "type": "asdfg"
+    }
+	
+CartRESTService
+
+1. Cart tartalmának lekérdezése
+
+GET
+http://localhost:8080/SV_MobileWebshop-web/webresources/cart/
+
+2. Mobil hozzáadása a Cart-hoz
+
+POST
+http://localhost:8080/SV_MobileWebshop-web/webresources/cart/
+{
+        "id": "4a58ce50-1bb0-45cd-XXXX-cbd2ebbcb952",
+        "manufacturer": "Testing",
+        "piece": 30,
+        "price": 200,
+        "type": "asdfg"
+    }
+	
+3. Checkout
+
+POST
+http://localhost:8080/SV_MobileWebshop-web/webresources/cart/checkout
+
+4. Ezek után visszamehetünk az /inventory/ path-ra , és ellenőrizhetjük, hogy tényleg lecsökkent a Cart-hoz hozzáadott és a checkout-nál megvásárolt mobiltelefonok darabszáma ( piece) .
+
+
+
