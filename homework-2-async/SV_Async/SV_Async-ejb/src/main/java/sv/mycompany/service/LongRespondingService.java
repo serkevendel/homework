@@ -1,5 +1,6 @@
 package sv.mycompany.service;
 
+import java.io.Serializable;
 import java.util.concurrent.Future;
 import javax.annotation.Resource;
 import javax.ejb.AsyncResult;
@@ -13,22 +14,21 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @Asynchronous
-public class LongRespondingService {
+public class LongRespondingService implements Serializable{
 
     @Resource
-    SessionContext ctx;
+    private SessionContext ctx;
 
     public Future<String> longRespondingTask(int wait) throws InterruptedException {
-        String status = "";
+        String status;
         for (int i = 0; i < 20; i++) {
-            Thread.sleep(wait * 1000 / 20);
+            Thread.sleep(wait *50);
 
             if (ctx.wasCancelCalled()) {
                 return new AsyncResult<>("cancelled");
             }
         }
         status = "completed";
-        //processing
         return new AsyncResult<>(status);
     }
 
