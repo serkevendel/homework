@@ -15,7 +15,7 @@ import javax.ejb.Startup;
 @Singleton
 @Startup
 public class UserManagementService implements Serializable {
-
+    private static final String EXC_MESSAGE = "User not found!";
     private final List<UserDTO> users = new ArrayList<>();
 
     public List<UserDTO> getUsers() {
@@ -47,7 +47,7 @@ public class UserManagementService implements Serializable {
             users.add(user);
             return users;
         }
-        throw new BadRequestException("User not found!");
+        throw new BadRequestException(EXC_MESSAGE);
     }
 
     public UserDTO getUser(String username) {
@@ -56,7 +56,7 @@ public class UserManagementService implements Serializable {
                 return user;
             }
         }
-        throw new BadRequestException("User not found!");
+        throw new BadRequestException(EXC_MESSAGE);
     }
 
     public UserDTO deleteByUsername(String username) {
@@ -66,6 +66,6 @@ public class UserManagementService implements Serializable {
                 return user;
             }
         }
-        throw new BadRequestException("User not found!");
+        throw new BadRequestException(EXC_MESSAGE);
     }
 }

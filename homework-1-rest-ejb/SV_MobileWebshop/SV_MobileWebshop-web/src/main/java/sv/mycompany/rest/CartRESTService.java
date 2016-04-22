@@ -35,10 +35,9 @@ public class CartRESTService implements Serializable {
     @Path("/")
     public List<MobileDTO> viewCart(@Context HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        for (UserDTO user : userManagementService.getUsers()) {
-            if (null != session.getAttribute(user.getUsername())) {
-                return cartService.getCart();
-            }
+
+        if (null != session.getAttribute(UserRESTService.SESSION_USER)) {
+            return cartService.getCart();
         }
 
         throw new BadRequestException("Login required for this operation.");
@@ -49,10 +48,8 @@ public class CartRESTService implements Serializable {
     public List<MobileDTO> addToCart(@Context HttpServletRequest request, MobileDTO mobile) {
 
         HttpSession session = request.getSession(true);
-        for (UserDTO user : userManagementService.getUsers()) {
-            if (null != session.getAttribute(user.getUsername())) {
-                return cartService.addToCart(mobile);
-            }
+        if (null != session.getAttribute(UserRESTService.SESSION_USER)) {
+            return cartService.addToCart(mobile);
         }
 
         throw new BadRequestException("Login required for this operation.");

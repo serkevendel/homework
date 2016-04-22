@@ -1,4 +1,4 @@
-package sv.mycompany.mobiledtotest;
+package sv.mycompany.dto;
 
 import java.util.ArrayList;
 import javax.validation.ConstraintViolation;
@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import sv.mycompany.dto.MobileDTO;
 
 public class MobileDTOTest {
 

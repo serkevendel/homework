@@ -1,5 +1,6 @@
 package sv.mycompany.service;
 
+import java.io.Serializable;
 import sv.mycompany.dto.MobileDTO;
 import sv.mycompany.exception.BadRequestException;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import javax.ejb.Startup;
 
 @Singleton
 @Startup
-public class InventoryService {
+public class InventoryService implements Serializable {
 
     private final List<MobileDTO> inventory = new ArrayList<>();
 

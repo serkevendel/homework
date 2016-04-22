@@ -1,6 +1,7 @@
 
 package sv.mycompany.dto;
 
+import java.io.Serializable;
 import sv.mycompany.annotation.Validate;
 import sv.mycompany.interceptor.BeanValidation;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Pattern;
 
 @Validate
 @BeanValidation
-public class MobileDTO {
+public class MobileDTO implements Serializable{
     @Pattern(regexp=".{36}")
     private String id = UUID.randomUUID().toString();
     @NotNull

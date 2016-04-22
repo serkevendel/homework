@@ -13,9 +13,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import static sv.mycompany.rest.UserRESTService.sessionUser;
 import sv.mycompany.service.InventoryService;
 import sv.mycompany.service.UserManagementService;
+import static sv.mycompany.rest.UserRESTService.SESSION_USER;
 
 @Path("/inventory")
 @Produces(MediaType.APPLICATION_JSON)
@@ -33,7 +33,7 @@ public class InventoryRESTService {
     @BeanValidation
     public MobileDTO addMobile(@Context HttpServletRequest request, MobileDTO mobile) {
 
-        if (null != request.getSession().getAttribute(sessionUser) && userManagementService.getUser(sessionUser).isAdmin()) {
+        if (null != request.getSession().getAttribute(SESSION_USER) && userManagementService.getUser(SESSION_USER).isAdmin()) {
             return inventoryService.addMobile(mobile);
         }
         throw new BadRequestException("Admin login is required for this operation.");

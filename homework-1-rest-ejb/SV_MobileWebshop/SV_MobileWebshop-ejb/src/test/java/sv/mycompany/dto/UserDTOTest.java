@@ -1,6 +1,5 @@
-package sv.mycompany.userdtotest;
+package sv.mycompany.dto;
 
-import sv.mycompany.dto.UserDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.validation.ConstraintViolation;
