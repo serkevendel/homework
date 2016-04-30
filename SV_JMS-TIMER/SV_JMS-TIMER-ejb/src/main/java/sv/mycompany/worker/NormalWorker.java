@@ -27,6 +27,7 @@ public class NormalWorker implements MessageListener {
     protected Topic topic;
 
     public NormalWorker() {
+        //empty constructor
     }
 
     @Override

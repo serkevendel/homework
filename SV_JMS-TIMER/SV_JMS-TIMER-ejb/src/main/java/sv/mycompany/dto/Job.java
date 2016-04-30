@@ -14,7 +14,6 @@ public class Job implements Serializable {
     private int numberid;
 
     public Job() {
-        number++;
         numberid = number;
         Random random = new Random();
         estimatedSeconds = random.nextInt(5 - 1) + 1;
@@ -32,7 +31,7 @@ public class Job implements Serializable {
         return number;
     }
 
-    public void setNumber(int number) {
+    public static void setNumber(int number) {
         Job.number = number;
     }
 

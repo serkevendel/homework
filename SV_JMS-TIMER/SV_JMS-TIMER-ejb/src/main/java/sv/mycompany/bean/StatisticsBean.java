@@ -23,6 +23,7 @@ public class StatisticsBean {
     private Map<Integer, Boolean> results = new HashMap<>();
 
     public StatisticsBean() {
+        //empty constructor
     }
 
     public int getScheduledJobs() {

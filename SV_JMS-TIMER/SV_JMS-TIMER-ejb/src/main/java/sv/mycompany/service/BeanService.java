@@ -31,12 +31,9 @@ public class BeanService implements MessageListener {
             if (jms.isSchedule()) {
                 statisticsBean.setScheduledJobs(statisticsBean.getScheduledJobs() + 1);
             } else if (!jms.isSchedule() && statisticsBean.getScheduledJobs() > 0) {
-                boolean tmp = false;
-                if (jms.getTimestamp() < 5) {
-                    tmp = true;
-                }
-                LOGGER.log(Level.INFO, "Job " + jms.getJobnumber() + " successful: " + Boolean.toString(tmp));
-                statisticsBean.getResults().put(jms.getJobnumber(), tmp);
+                boolean success = jms.getTimestamp() < 5;
+                LOGGER.log(Level.INFO, "Job " + jms.getJobnumber() + " successful: " + Boolean.toString(success));
+                statisticsBean.getResults().put(jms.getJobnumber(), success);
                 statisticsBean.setScheduledJobs(statisticsBean.getScheduledJobs() - 1);
             }
         } catch (JMSException ex) {

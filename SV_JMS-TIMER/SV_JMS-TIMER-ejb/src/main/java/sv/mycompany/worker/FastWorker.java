@@ -27,6 +27,7 @@ public class FastWorker implements MessageListener {
     protected Topic topic;
 
     public FastWorker() {
+        //empty constructor
     }
 
     @Override

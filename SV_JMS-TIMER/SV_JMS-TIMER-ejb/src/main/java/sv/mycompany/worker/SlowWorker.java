@@ -27,6 +27,7 @@ public class SlowWorker implements MessageListener {
     protected Topic topic;
 
     public SlowWorker() {
+        //empty constructor
     }
 
     @Override

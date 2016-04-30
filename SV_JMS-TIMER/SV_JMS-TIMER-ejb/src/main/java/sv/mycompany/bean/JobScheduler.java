@@ -48,6 +48,7 @@ public class JobScheduler {
     @Timeout
     public void queueNewJobs(Timer timer) {
         for (int i = 0; i < 10; i++) {
+            Job.setNumber(Job.getNumber()+1);
             Job job = new Job();
             jmsContext.createProducer().send(queue, job);
             jmsContext.createProducer().send(topic, new JobMessage(job.getEstimatedSeconds(), job.getNumberid(), true));
